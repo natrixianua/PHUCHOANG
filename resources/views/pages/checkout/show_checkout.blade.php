@@ -4,6 +4,10 @@
 .table-responsive.cart_info{
 	width: 55vw;
 }	
+#cart_items.cart_info.cart_menu{
+  background-color: black;
+	}
+
 </style>
 <section id="cart_items">
 		<div class="container">
@@ -19,7 +23,7 @@
 						<div class="bill-to">
 							<p style="color:white">ĐIỀN THÔNG TIN ĐƠN HÀNG</p>
 							<div class="form-one" style="border:1px solid white">
-								<form method="POST" >
+								<form method="POST" action="{{URL::to('/save-checkout-customer')}}" >
 									@csrf
 									<input type="text" name="shipping_email" class="shipping_email" placeholder="Điền email">
 									<input type="text" name="shipping_name" class="shipping_name" placeholder="Họ và tên người gửi">
@@ -52,7 +56,7 @@
 		                                    </select>
 		                                </div>
 									</div>
-									<input style="height: 7vh;" type="button" value="Xác nhận đơn hàng" name="send_order" class="btn btn-primary btn-sm send_order">
+									<input style="height: 7vh; background-color: #26a69a; color:white; font-weight: 700;" type="button" value="Xác nhận đơn hàng" name="send_order" class="btn btn-primary btn-sm send_order">
 								</form>
 								<form >
                                     @csrf 
@@ -83,7 +87,7 @@
                                 </div>
                                
                                
-                              	<input style="height: 7vh;"  type="button" value="Tính phí vận chuyển" name="calculate_order" class="btn btn-primary btn-sm calculate_delivery">
+                              	<input style="height: 7vh; background-color:#26a69a; color:white;font-weight: 700;"  type="button" value="Tính phí vận chuyển" name="calculate_order" class="btn btn-primary btn-sm calculate_delivery">
 
 
                                 </form>
@@ -108,7 +112,7 @@
 								@csrf
 							<table class="table table-condensed">
 								<thead>
-									<tr class="cart_menu">
+									<tr class="cart_menu" style="background-color: #26a69a;">
 										<td class="image">Hình ảnh</td>
 										<td class="description">Tên sản phẩm</td>
 										<td class="price">Giá sản phẩm</td>
@@ -134,22 +138,22 @@
 										</td>
 										<td class="cart_description">
 											<h4><a href=""></a></h4>
-											<p>{{$cart['product_name']}}</p>
+											<p style="color:white">{{$cart['product_name']}}</p>
 										</td>
 										<td class="cart_price">
-											<p>{{number_format($cart['product_price'],0,',','.')}}đ</p>
+											<p style="color:white">{{number_format($cart['product_price'],0,',','.')}}đ</p>
 										</td>
 										<td class="cart_quantity">
 											<div class="cart_quantity_button">
 											
 											
-												<input class="cart_quantity" type="number" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}"  >
+												<input style="color:white" class="cart_quantity" type="number" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}"  >
 											
 												
 											</div>
 										</td>
 										<td class="cart_total">
-											<p class="cart_total_price">
+											<p class="cart_total_price" style="color:white">
 												{{number_format($subtotal,0,',','.')}}đ
 												
 											</p>
@@ -161,7 +165,7 @@
 									
 									@endforeach
 									<tr>
-										<td><input type="submit" value="Cập nhật giỏ hàng" name="update_qty" class="check_out btn btn-default btn-sm"></td>
+										<td><input  type="submit" value="Cập nhật giỏ hàng" name="update_qty" class="check_out btn btn-default btn-sm"></td>
 										<td><a class="btn btn-default check_out" href="{{url('/del-all-product')}}">Xóa tất cả</a></td>
 										<td>
 											@if(Session::get('coupon'))
@@ -171,27 +175,27 @@
 
 										
 										<td colspan="2">
-										<li>Tổng tiền :<span>{{number_format($total,0,',','.')}}đ</span></li>
+										<li >Tổng tiền :<span >{{number_format($total,0,',','.')}}đ</span></li>
 										@if(Session::get('coupon'))
 										<li>
 											
 												@foreach(Session::get('coupon') as $key => $cou)
 													@if($cou['coupon_condition']==1)
 														Mã giảm : {{$cou['coupon_number']}} %
-														<p>
+														<p style="color:white">
 															@php 
 															$total_coupon = ($total*$cou['coupon_number'])/100;
 														
 															@endphp
 														</p>
-														<p>
+														<p style="color:white">
 														@php 
 															$total_after_coupon = $total-$total_coupon;
 														@endphp
 														</p>
 													@elseif($cou['coupon_condition']==2)
 														Mã giảm : {{number_format($cou['coupon_number'],0,',','.')}} k
-														<p>
+														<p style="color:white">
 															@php 
 															$total_coupon = $total - $cou['coupon_number'];
 														
@@ -212,7 +216,7 @@
 										<li>	
 											<a class="cart_quantity_delete" href="{{url('/del-fee')}}"><i class="fa fa-times"></i></a>
 
-											Phí vận chuyển <span>{{number_format(Session::get('fee'),0,',','.')}}đ</span></li> 
+											Phí vận chuyển <span style="color:white">{{number_format(Session::get('fee'),0,',','.')}}đ</span></li> 
 											<?php $total_after_fee = $total + Session::get('fee'); ?>
 										@endif 
 										<li>Tổng còn:

@@ -259,6 +259,13 @@
 .box{
 	position: absolute;
 	top: 0;
+}.text-alert{
+	color: #32be8f;
+	position: absolute;
+	z-index: 10000;
+}
+.btn.btn-default{
+	margin-left: 5%;
 }
 </style>
 <body>
@@ -274,7 +281,13 @@
     <div class="row">
     	<div class="col-sm-5">
 			<div class="login-form" style="margin-top:25vh; margin-left: 10vw">
-				
+				<?php
+				$message = Session::get('message');
+				if($message){
+					echo '<span class="text-alert">'.$message.'</span>';
+					Session::put('message',null);
+				}
+				?>
 				<form class="box" action="{{URL::to('/login-customer')}}" method="POST">
 					{{csrf_field()}}
 					<img style="width: 10vh;margin-left: 16vh;" src="{{('public/frontend/images/avatar.svg')}}">
@@ -301,7 +314,7 @@
 							Ghi nhớ đăng nhập
 						</span>
 					</div>
-					<a href="#">Quên Mật Khẩu?</a>
+					
 					<input class="btn" type="submit" name="login" value="Đăng Nhập">
 				</form>
 			</div>

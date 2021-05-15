@@ -51,7 +51,7 @@ class ProductController extends Controller
     }
 
     public function list_comment(){
-        $comment = Comment::with('product')->where('comment_parent_comment','=',0)->orderBy('comment_status', 'DESC')->get();
+        $comment = Comment::with('product')->orderBy('comment_status', 'desc')->get();
         $comment_rep = Comment::with('product')->where('comment_parent_comment','>',0)->get();
         return view('admin.comment.list_comment')->with(compact('comment','comment_rep'));
     }
@@ -66,13 +66,12 @@ class ProductController extends Controller
         $comment->comment_name = $comment_name;
         $comment->comment_product_id = $product_id;
         $comment->comment_status = 1;
-        $comment->comment_parent_comment = 0;
         $comment->save();
     }
     public function load_comment(Request $request){
         $product_id = $request->product_id;
-        $comment = Comment::where('comment_product_id',$product_id)->where('comment_parent_comment','=',0)->where('comment_status',0)->get();
-        $comment_rep = Comment::with('product')->where('comment_parent_comment','>',0)->orderBy('comment_status', 'DESC')->get();
+        $comment = Comment::where('comment_product_id',$product_id)->where('comment_status',0)->get();
+        $comment_rep = Comment::with('product')->where('comment_parent_comment','>',0)->get();
         $output = '';
         foreach ($comment as $key => $comm) {
             $output.= '
@@ -107,7 +106,6 @@ class ProductController extends Controller
         echo $output;
 
     }
-    
     public function add_product(){
         $this->AuthLogin();
         $cate_product = DB::table('tbl_category_product')->orderby('category_id','desc')->get(); 

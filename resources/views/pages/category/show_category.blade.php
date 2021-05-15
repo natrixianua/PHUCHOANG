@@ -15,16 +15,21 @@
 }
 .product-image-wrapper{
     height: 60vh;
+    border:1px dotted white;
 }
 .product-image-wrapper img{
     transition: 0.5s;
+    height: 60%;
 }
 .product-image-wrapper:hover img{
     transform: translate(0, -5%)
+}.product-image-wrapper:hover .btn.btn-default.add-to-cart{
+    transform: scale(0, 150%;)
 }
 .pagination.pagination-sm.m-t-none.m-b-none{
     margin-left: 45%;
   }
+  
 </style>
 <div><!--features_items-->
                        
@@ -36,7 +41,7 @@
                         @foreach($category_by_id as $key => $product)
                         <a  href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                         <div class="col-sm-4">
-                             <div class="product-image-wrapper">
+                             <div class="product-image-wrapper" >
                            
                                 <div class="single-products">
                                         <div class="productinfo text-center">
@@ -51,8 +56,8 @@
 
                                             <a class="chitiet" href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                 <img src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="" />
-                                                <h2 style="color:red;">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</h2>
-                                                <p style="color:white;">{{$product->product_name}}</p>
+                                                <h2 style="color:white;">{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</h2>
+                                                <h6 style="color:black; ">{{$product->product_name}}</h6>
 
                                              
                                              </a>

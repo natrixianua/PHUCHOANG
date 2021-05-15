@@ -13,6 +13,10 @@
  	.table-responsive.cart_info{
  		width: 55vw;
  	}
+ 	.a{
+ 		color: white;
+ 	}
+
 </style>
 	<section id="cart_items">
 		<div class="container">
@@ -32,12 +36,12 @@
 					@csrf
 				<table class="table table-condensed">
 					<thead>
-						<tr class="cart_menu">
+						<tr class="cart_menu" style="background-color: #26a69a">
 							<td class="image">Hình ảnh</td>
 							<td class="description">Tên sản phẩm</td>
-							<td class="description">Số lượng tồn</td>
+							<td class="description">S/L còn</td>
 							<td class="price">Giá sản phẩm</td>
-							<td class="quantity">Số lượng</td>
+							<td class="quantity">S/L dặt</td>
 							<td class="total">Thành tiền</td>
 							<td></td>
 						</tr>
@@ -59,25 +63,25 @@
 							</td>
 							<td class="cart_description">
 								<h4><a href=""></a></h4>
-								<p>{{$cart['product_name']}}</p>
+								<p class="a" style="color:white">{{$cart['product_name']}}</p>
 							</td>
 							<td class="cart_description">
 								<h4><a href=""></a></h4>
-								<p>{{$cart['product_quantity']}}</p>
+								<p class="a" style="color:white">{{$cart['product_quantity']}}</p>
 							</td>
 							<td class="cart_price">
-								<p>{{number_format($cart['product_price'],0,',','.')}}đ</p>
+								<p class="a" style="color:white">{{number_format($cart['product_price'],0,',','.')}}đ</p>
 							</td>
 							<td class="cart_quantity">
 								<div class="cart_quantity_button">
 								
-									<input class="cart_quantity" type="number" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}"  >
+									<input style="color:white" class="cart_quantity" type="number" min="1" name="cart_qty[{{$cart['session_id']}}]" value="{{$cart['product_qty']}}"  >
 								
 									
 								</div>
 							</td>
 							<td class="cart_total">
-								<p class="cart_total_price">
+								<p class="cart_total_price" style="color:white">
 									{{number_format($subtotal,0,',','.')}}đ
 									
 								</p>
@@ -107,36 +111,8 @@
 
 							
 							<td colspan="2">
-							<li>Tổng tiền :<span>{{number_format($total,0,',','.')}}đ</span></li>
-							@if(Session::get('coupon'))
-							<li>
-								
-									@foreach(Session::get('coupon') as $key => $cou)
-										@if($cou['coupon_condition']==1)
-											Mã giảm : {{$cou['coupon_number']}} %
-											<p>
-												@php 
-												$total_coupon = ($total*$cou['coupon_number'])/100;
-												echo '<p><li>Tổng giảm:'.number_format($total_coupon,0,',','.').'đ</li></p>';
-												@endphp
-											</p>
-											<p><li>Tổng đã giảm :{{number_format($total-$total_coupon,0,',','.')}}đ</li></p>
-										@elseif($cou['coupon_condition']==2)
-											Mã giảm : {{number_format($cou['coupon_number'],0,',','.')}} k
-											<p>
-												@php 
-												$total_coupon = $total - $cou['coupon_number'];
-								
-												@endphp
-											</p>
-											<p><li>Tổng đã giảm :{{number_format($total_coupon,0,',','.')}}đ</li></p>
-										@endif
-									@endforeach
-								
-
-
-							</li>
-							@endif 
+							<li style="color:white;font-size: 120%;">Tổng tiền :<span style="color:white">{{number_format($total,0,',','.')}}đ</span></li>
+							
 						{{-- 	<li>Thuế <span></span></li>
 							<li>Phí vận chuyển <span>Free</span></li> --}}
 							
@@ -157,18 +133,7 @@
 					
 
 				</form>
-					@if(Session::get('cart'))
-					<tr><td>
-
-							<form method="POST" action="{{url('/check-coupon')}}">
-								@csrf
-									<input type="text" class="form-control" name="coupon" placeholder="Nhập mã giảm giá"><br>
-	                          		<input type="submit" class="btn btn-default check_coupon" name="check_coupon" value="Tính mã giảm giá">
-	                          	
-                          		</form>
-                          	</td>
-					</tr>
-					@endif
+			
 
 				</table>
 

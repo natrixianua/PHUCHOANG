@@ -25,7 +25,22 @@
 		background-color: transparent;
 		
 	}
-	
+	.category-tab ul{
+		background-color: white;
+	}
+	.product-image-wrapper img{
+		transition: 0.3s ease-out;
+	}
+	.product-image-wrapper:hover img{
+		transform: translate(0, -5%);
+	}
+	#details{
+		background-color: white;
+		height: 15vh;
+	}
+	#cart_items.cart_info.cart_menu{
+  background-color: black;
+	}
 </style>
 @foreach($product_details as $key => $value)
 <div class="product-details"><!--product-details-->
@@ -153,12 +168,12 @@
  
 	@foreach($relate as $key => $lienquan)
 	<div class="col-sm-4">
-		<div class="product-image-wrapper">
+		<div class="product-image-wrapper" style="border:1px solid white;">
 			<div class="single-products">
 				<div class="productinfo text-center product-related">
 					<img src="{{URL::to('public/uploads/product/'.$lienquan->product_image)}}" alt="" />
-					<h2>{{number_format($lienquan->product_price,0,',','.').' '.'VNĐ'}}</h2>
-					<p>{{$lienquan->product_name}}</p>
+					
+					<h6 style="color:white;">{{$lienquan->product_name}}</h6>
 
 				</div>
 

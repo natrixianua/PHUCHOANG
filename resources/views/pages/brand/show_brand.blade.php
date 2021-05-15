@@ -1,5 +1,40 @@
-@extends('layout')
+@extends('brach_product')
 @section('content')
+<style>
+   .title.text-center{
+        color: black;
+        border-bottom:  2px solid black;
+        font-style: italic;
+    }
+.btn.btn-default.add-to-cart:hover{
+    background-color: #26a69a;
+}
+
+.chitiet:hover{
+   background-color: transparent;
+}
+.product-image-wrapper{
+    height: 60vh;
+    border:1px dotted white;
+}
+.product-image-wrapper img{
+    transition: 0.5s;
+    height: 60%;
+}
+.product-image-wrapper:hover img{
+    transform: translate(0, -5%);
+   
+}
+.product-image-wrapper:hover a{
+     background-color: transparent;
+}
+.pagination.pagination-sm.m-t-none.m-b-none{
+    margin-left: 45%;
+  }
+     .btn.btn-default.add-to-cart{
+        border-radius: 10px;
+     }
+</style>
 <div class="features_items"><!--features_items-->
 
                         @foreach($brand_name as $key => $name)
@@ -25,7 +60,7 @@
                                             <a href="{{URL::to('/chi-tiet/'.$product->product_slug)}}">
                                                 <img src="{{URL::to('public/uploads/product/'.$product->product_image)}}" alt="" />
                                                 <h2>{{number_format($product->product_price,0,',','.').' '.'VNĐ'}}</h2>
-                                                <p>{{$product->product_name}}</p>
+                                                <h6 style="color:black">{{$product->product_name}}</h6>
 
                                              
                                              </a>
@@ -36,12 +71,7 @@
                                       
                                 </div>
                            
-                                <div class="choose">
-                                    <ul class="nav nav-pills nav-justified">
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>Yêu thích</a></li>
-                                        <li><a href="#"><i class="fa fa-plus-square"></i>So sánh</a></li>
-                                    </ul>
-                                </div>
+                               
                             </div>
                     
                         </div>

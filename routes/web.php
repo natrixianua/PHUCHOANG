@@ -122,6 +122,7 @@ Route::get('/del-all-product','CartController@delete_all_product');
 //Checkout
 Route::get('/login-checkout','CheckoutController@login_checkout');
 Route::get('/del-fee','CheckoutController@del_fee');
+// Route::get('/register-checkout','CheckoutController@register_checkout');
 
 Route::get('/logout-checkout','CheckoutController@logout_checkout');
 Route::post('/add-customer','CheckoutController@add_customer');
